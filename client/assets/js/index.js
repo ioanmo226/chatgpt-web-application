@@ -64,7 +64,8 @@ function getGPTResult() {
     promptInput.textContent = '';
     addResponse(true, prompt);
     const uniqueId = addResponse(false);
-    loader(document.getElementById(uniqueId));
+    const responseElement = document.getElementById(uniqueId);
+    loader(responseElement);
     isGeneratingResponse = true;
     fetch(`${API_URL}/get-prompt-result?prompt=` + encodeURI(prompt))
         .then(response => response.text())
@@ -73,12 +74,13 @@ function getGPTResult() {
             hljs.highlightAll();
             responseList.scrollTop = responseList.scrollHeight;
         }).catch((err) => {
-        alert(err);
-    }).finally(() => {
-        isGeneratingResponse = false;
-        submitButton.classList.remove("loading");
-        clearInterval(loadInterval);
-    });
+            responseElement.textContent = `${err}`;
+            responseElement.style.color = 'rgb(200, 0, 0)';
+        }).finally(() => {
+            isGeneratingResponse = false;
+            submitButton.classList.remove("loading");
+            clearInterval(loadInterval);
+        });
 }
 
 submitButton.addEventListener("click", () => {

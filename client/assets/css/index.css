@@ -43,10 +43,11 @@ body {
 }
 
 #response-list .response-container .prompt-content {
+    display: flex;
     background: transparent !important;
     color: white;
     padding: 0 !important;
-    margin-top: 7px;
+    margin-top: 5px;
 }
 
 .chatgpt-response {

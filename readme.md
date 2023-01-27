@@ -6,7 +6,6 @@ This app is for demo purpose to test OpenAI API and may contain issues/bugs.
 ## Features
 - User-friendly interface for making requests to the OpenAI API
 - Responses are displayed in a chat-like format
-- Code Blocks are detected and displayed in a Code Viewer
 
 ## Technologies Used
 - For client, I haven't used frameworks as this is simple demo version.
@@ -40,7 +39,6 @@ Be sure to set correct API_URL when you host on your own server
 - Type in the input field and press enter or click on the send button to make a request to the OpenAI API
 - Use control+enter to add line breaks in the input field
 - Responses are displayed in the chat-like format on top of the page
-- Code Blocks are detected and displayed in the Code Viewer
 
 ## Screenshot
 ![Demo image](/client/assets/img/demo.png)

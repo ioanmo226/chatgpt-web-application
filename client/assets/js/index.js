@@ -36,9 +36,7 @@ function addResponse(selfFlag, prompt) {
             </div>
         `
     responseList.insertAdjacentHTML('beforeend', html);
-    if (prompt) {
-        hljs.highlightAll()
-    }
+    responseList.scrollTop = responseList.scrollHeight;
     return uniqueId;
 }
 function loader(element) {
@@ -71,7 +69,6 @@ function getGPTResult() {
         .then(response => response.text())
         .then(responseText => {
             document.getElementById(uniqueId).textContent = responseText.replace(/^\s+/g, '');
-            hljs.highlightAll();
             responseList.scrollTop = responseList.scrollHeight;
         }).catch((err) => {
             responseElement.textContent = `${err}`;

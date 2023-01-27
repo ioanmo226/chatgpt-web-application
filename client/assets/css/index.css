@@ -38,6 +38,7 @@ body {
 }
 
 #response-list .response-container pre {
+    max-width: 100%;
     margin: 0 !important;
     white-space: break-spaces;
 }

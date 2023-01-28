@@ -26,5 +26,7 @@ app.get('/get-prompt-result', async (req, res) => {
     }
 });
 
+app.use('/', express.static(__dirname + '/client')); //Serves resources from public folder
+
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Listening on port ${port}`));

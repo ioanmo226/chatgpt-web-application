@@ -84,4 +84,6 @@ submitButton.addEventListener("click", () => {
     getGPTResult();
 });
 
-promptInput.focus();
+document.addEventListener("DOMContentLoaded", function(event){
+    promptInput.focus();
+});

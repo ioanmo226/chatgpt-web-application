@@ -32,8 +32,7 @@ OPENAI_API_KEY=your_api_key
 ```sh
 node index.js
 ```
-5. Start the client app by opening the client/index.html file or by hosting the client folder in your own server.
-Be sure to set correct API_URL when you host on your own server
+5. Now when you navigate to http://localhost:3001 you will see web response.
 
 ## Usage
 - Type in the input field and press enter or click on the send button to make a request to the OpenAI API

@@ -39,6 +39,7 @@ function addResponse(selfFlag, prompt) {
     responseList.scrollTop = responseList.scrollHeight;
     return uniqueId;
 }
+
 function loader(element) {
     element.textContent = ''
 
@@ -94,8 +95,7 @@ async function getGPTResult() {
         const response = await fetch(API_URL + '/get-prompt-result', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt }),
-            timeout: 5000
+            body: JSON.stringify({ prompt })
         });
         if (!response.ok) {
             setErrorForResponse(responseElement, `HTTP Error: ${response.status}`);

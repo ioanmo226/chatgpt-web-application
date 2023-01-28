@@ -52,38 +52,81 @@ function loader(element) {
         }
     }, 300);
 }
-function getGPTResult() {
-    if (isGeneratingResponse) {
+
+function setErrorForResponse(element, message) {
+    element.innerText = message;
+    element.style.color = 'rgb(200, 0, 0)';
+}
+
+// Function to get GPT result
+async function getGPTResult() {
+    // Get the prompt input
+    const prompt = promptInput.textContent;
+
+    // If a response is already being generated or the prompt is empty, return
+    if (isGeneratingResponse || !prompt) {
         return;
     }
-    const prompt = promptInput.textContent;
+
+    // Add loading class to the submit button
     submitButton.classList.add("loading");
 
+    // Clear the prompt input
     promptInput.textContent = '';
+
+    // Add the prompt to the response list
     addResponse(true, prompt);
+
+    // Get a unique ID for the response element
     const uniqueId = addResponse(false);
+
+    // Get the response element
     const responseElement = document.getElementById(uniqueId);
+
+    // Show the loader
     loader(responseElement);
+
+    // Set isGeneratingResponse to true
     isGeneratingResponse = true;
-    fetch(`${API_URL}/get-prompt-result?prompt=` + encodeURI(prompt))
-        .then(response => response.text())
-        .then(responseText => {
-            document.getElementById(uniqueId).textContent = responseText.replace(/^\s+/g, '');
-            responseList.scrollTop = responseList.scrollHeight;
-        }).catch((err) => {
-            responseElement.textContent = `${err}`;
-            responseElement.style.color = 'rgb(200, 0, 0)';
-        }).finally(() => {
-            isGeneratingResponse = false;
-            submitButton.classList.remove("loading");
-            clearInterval(loadInterval);
+
+    try {
+        // Send a POST request to the API with the prompt in the request body
+        const response = await fetch(API_URL + '/get-prompt-result', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt }),
+            timeout: 5000
         });
+        if (!response.ok) {
+            setErrorForResponse(responseElement, `HTTP Error: ${response.status}`);
+            return;
+        }
+        const responseText = await response.text();
+        // Set the response text
+        responseElement.innerText = responseText.trim();
+
+        // Scroll to the bottom of the response list
+        responseList.scrollTop = responseList.scrollHeight;
+    } catch (err) {
+        // If there's an error, show it in the response element
+        setErrorForResponse(responseElement, `Error: ${err.message}`);
+    } finally {
+        // Set isGeneratingResponse to false
+        isGeneratingResponse = false;
+
+        // Remove the loading class from the submit button
+        submitButton.classList.remove("loading");
+
+        // Clear the loader interval
+        clearInterval(loadInterval);
+    }
 }
+
 
 submitButton.addEventListener("click", () => {
     getGPTResult();
 });
 
-document.addEventListener("DOMContentLoaded", function(event){
+document.addEventListener("DOMContentLoaded", function(){
     promptInput.focus();
 });

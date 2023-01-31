@@ -98,7 +98,7 @@ async function getGPTResult() {
             body: JSON.stringify({ prompt })
         });
         if (!response.ok) {
-            setErrorForResponse(responseElement, `HTTP Error: ${response.status}`);
+            setErrorForResponse(responseElement, `HTTP Error: ${await response.text()}`);
             return;
         }
         const responseText = await response.text();

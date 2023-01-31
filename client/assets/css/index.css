@@ -26,7 +26,7 @@ body {
     display: flex;
 }
 
-#response-list .response-container img {
+#response-list .response-container .avatar-image {
     width: 30px;
     height: 30px;
     margin-right: 15px;
@@ -99,4 +99,29 @@ body {
     opacity: 0.5;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+#model-select-container {
+    margin: 10px 200px;
+    color: white;
+}
+
+#model-select-container select {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+}
+
+#model-select-container select option:not(:checked) {
+    background: rgba(32,33,35,.8);
+}
+
+#model-select-container select option {
+    background: rgba(32,33,35,.5);
+}
+
+.ai-image {
+    width: 500px;
+    height: auto;
 }

@@ -8,6 +8,14 @@
 <body>
 <div id="response-list">
 </div>
+<div id="model-select-container">
+    <label for="model-select">Select model:</label>
+    <select id="model-select">
+        <option value="gpt" selected>GPT-3 (Understand and generate natural language )</option>
+        <option value="codex">Codex (Understand and generate code, including translating natural language to code)</option>
+        <option value="image">Create Image (Create AI image using DALL·E models)</option>
+    </select>
+</div>
 <div id="input-container">
     <div id="prompt-input" contentEditable></div>
     <button id="submit-button"></button>

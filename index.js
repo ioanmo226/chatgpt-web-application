@@ -14,7 +14,7 @@ app.use('/', express.static(__dirname + '/client')); // Serves resources from cl
 
 app.post('/get-prompt-result', async (req, res) => {
     // Get the prompt from the request body
-    const {prompt} = req.body;
+    const {prompt, model = 'gpt'} = req.body;
 
     // Check if prompt is present in the request
     if (!prompt) {
@@ -25,18 +25,25 @@ app.post('/get-prompt-result', async (req, res) => {
     try {
         // Use the OpenAI SDK to create a completion
         // with the given prompt, model and maximum tokens
+        if (model === 'image') {
+            const result = await openai.createImage({
+                prompt,
+                response_format: 'url'
+            });
+            return res.send(result.data.data[0].url);
+        }
         const completion = await openai.createCompletion({
-            model: "text-davinci-003", // model name
+            model: model === 'gpt' ? "text-davinci-003" : 'code-davinci-002', // model name
             prompt, // input prompt
             max_tokens: 4000 // maximum number of tokens to generate
         });
         // Send the generated text as the response
-        res.send(completion.data.choices[0].text);
+        return res.send(completion.data.choices[0].text);
     } catch (error) {
-        // Log the error message from the OpenAI API
-        console.error(error.response.data.error);
+        const errorMsg = error.response ? error.response.data.error : `${error}`;
+        console.error(errorMsg);
         // Send a 500 status code and the error message as the response
-        res.status(500).send(error.response.data.error.message);
+        return res.status(500).send(errorMsg);
     }
 });
 

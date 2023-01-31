@@ -2,6 +2,7 @@ const API_URL = 'http://localhost:3001';
 
 const submitButton = document.getElementById("submit-button");
 const promptInput = document.getElementById("prompt-input");
+const modelSelect = document.getElementById("model-select");
 const responseList = document.getElementById("response-list");
 let isGeneratingResponse = false;
 
@@ -31,7 +32,7 @@ function addResponse(selfFlag, prompt) {
     const uniqueId = generateUniqueId();
     const html = `
             <div class="response-container ${selfFlag ? 'my-question' : 'chatgpt-response'}">
-                <img src="assets/img/${selfFlag ? 'me' : 'chatgpt'}.png" alt="avatar"/>
+                <img class="avatar-image" src="assets/img/${selfFlag ? 'me' : 'chatgpt'}.png" alt="avatar"/>
                 <pre><code class="prompt-content" id="${uniqueId}">${prompt}</code></pre>
             </div>
         `
@@ -91,19 +92,28 @@ async function getGPTResult() {
     isGeneratingResponse = true;
 
     try {
+        const model = modelSelect.value;
         // Send a POST request to the API with the prompt in the request body
         const response = await fetch(API_URL + '/get-prompt-result', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt })
+            body: JSON.stringify({
+                prompt,
+                model
+            })
         });
         if (!response.ok) {
             setErrorForResponse(responseElement, `HTTP Error: ${await response.text()}`);
             return;
         }
         const responseText = await response.text();
-        // Set the response text
-        responseElement.innerText = responseText.trim();
+        if (model === 'image') {
+            // Show image for `Create image` model
+            responseElement.innerHTML = `<img src="${responseText}" class="ai-image" alt="generated image"/>`
+        } else {
+            // Set the response text
+            responseElement.innerText = responseText.trim();
+        }
 
         // Scroll to the bottom of the response list
         responseList.scrollTop = responseList.scrollHeight;

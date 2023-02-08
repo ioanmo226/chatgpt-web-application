@@ -44,3 +44,11 @@ node index.js
 - Responses are displayed in the chat-like format on top of the page
 - Generate code, including translating natural language to code
 - You can also create AI images using DALL·E models 
+
+## Contributing
+
+This project welcomes contributions and suggestions for improvements. If you have any ideas, please feel free to open an issue or create a pull request.
+
+Thank you for your consideration.
+
+

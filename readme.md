@@ -8,7 +8,8 @@ This app is for demo purpose to test OpenAI API and may contain issues/bugs.
 ## Features
 - User-friendly interface for making requests to the OpenAI API
 - Responses are displayed in a chat-like format
-- Select Models (Davinci, Codex, Create Image) based on your needs 
+- Select Models (Davinci, Codex, Create Image) based on your needs
+- Highlight code syntax
 
 ## Technologies Used
 - For client, I haven't used frameworks as this is simple demo version.

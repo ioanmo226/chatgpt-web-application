@@ -28,13 +28,14 @@ app.post('/get-prompt-result', async (req, res) => {
         if (model === 'image') {
             const result = await openai.createImage({
                 prompt,
-                response_format: 'url'
+                response_format: 'url',
+                size: '512x512'
             });
             return res.send(result.data.data[0].url);
         }
         const completion = await openai.createCompletion({
             model: model === 'gpt' ? "text-davinci-003" : 'code-davinci-002', // model name
-            prompt, // input prompt
+            prompt: `Please reply below question in markdown format.\n ${prompt}`, // input prompt
             max_tokens: model === 'gpt' ? 4000 : 8000 // Use max 8000 tokens for codex model
         });
         // Send the generated text as the response

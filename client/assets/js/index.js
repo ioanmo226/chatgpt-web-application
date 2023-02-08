@@ -1,4 +1,5 @@
 const API_URL = 'http://localhost:3001';
+const converter = new showdown.Converter();
 
 const submitButton = document.getElementById("submit-button");
 const promptInput = document.getElementById("prompt-input");
@@ -33,7 +34,7 @@ function addResponse(selfFlag, prompt) {
     const html = `
             <div class="response-container ${selfFlag ? 'my-question' : 'chatgpt-response'}">
                 <img class="avatar-image" src="assets/img/${selfFlag ? 'me' : 'chatgpt'}.png" alt="avatar"/>
-                <pre><code class="prompt-content" id="${uniqueId}">${prompt}</code></pre>
+                <div class="prompt-content" id="${uniqueId}">${prompt}</div>
             </div>
         `
     responseList.insertAdjacentHTML('beforeend', html);
@@ -112,11 +113,14 @@ async function getGPTResult() {
             responseElement.innerHTML = `<img src="${responseText}" class="ai-image" alt="generated image"/>`
         } else {
             // Set the response text
-            responseElement.innerText = responseText.trim();
+            responseElement.innerHTML = converter.makeHtml(responseText.trim());
         }
 
-        // Scroll to the bottom of the response list
-        responseList.scrollTop = responseList.scrollHeight;
+        setTimeout(() => {
+            // Scroll to the bottom of the response list
+            responseList.scrollTop = responseList.scrollHeight;
+            hljs.highlightAll();
+        }, 10);
     } catch (err) {
         // If there's an error, show it in the response element
         setErrorForResponse(responseElement, `Error: ${err.message}`);

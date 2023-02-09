@@ -26,9 +26,9 @@ git clone https://github.com/ioanmo226/chatgpt-web-application
 ```
 2. Install the dependencies:
 ```sh
-cd server && npm install
+npm install
 ```
-3. Create a .env file in the server folder and add your OpenAI API key in the following format:
+3. Create a .env file in the root folder and add your OpenAI API key in the following format:
 ```sh
 OPENAI_API_KEY=your_api_key
 ```

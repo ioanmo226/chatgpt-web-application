@@ -3,7 +3,7 @@
 A web application that allows users to interact with OpenAI's GPT-3 language model through a simple and user-friendly interface.
 This app is for demo purpose to test OpenAI API and may contain issues/bugs.
 
-![Demo Gif](/client/assets/img/demo.gif)
+![Demo Gif](/client/assets/img/demo_updated.gif)
 
 ## Features
 - User-friendly interface for making requests to the OpenAI API

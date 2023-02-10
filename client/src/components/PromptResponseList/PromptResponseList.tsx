@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {FC, useEffect, useRef} from 'react';
 import ChatGptImg from '../../img/chatgpt.png';
 import MyImg from '../../img/me.png';
 import ReactMarkdown from 'react-markdown';
@@ -10,13 +10,14 @@ interface PromptResponseListProps {
   responseList: ResponseInterface[];
 }
 
-const PromptResponseList: React.FC<PromptResponseListProps> = ({ responseList }) => {
-  const responseListRef = React.useRef<HTMLDivElement>(null);
+const PromptResponseList: FC<PromptResponseListProps> = ({ responseList }) => {
+  const responseListRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (responseListRef.current) {
-      responseListRef.current.scrollTop = responseListRef.current?.scrollHeight;
-    }
+    hljs.highlightAll();
+  })
+
+  useEffect(() => {
     hljs.highlightAll();
   }, [responseList]);
 
@@ -33,7 +34,7 @@ const PromptResponseList: React.FC<PromptResponseListProps> = ({ responseList })
               <ReactMarkdown
                 children={responseData.response ?? ''}
                 components={{
-                  code({node, inline, className, children, ...props}) {
+                  code({children}) {
                     return(
                       <code>{children}</code>
                     )

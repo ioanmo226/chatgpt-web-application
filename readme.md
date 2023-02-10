@@ -5,6 +5,9 @@ This app is for demo purpose to test OpenAI API and may contain issues/bugs.
 
 ![Demo Gif](/client/assets/img/demo_updated.gif)
 
+<a href="https://www.buymeacoffee.com/yourusername" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="51" width="217"></a>
+
+
 ## Features
 - User-friendly interface for making requests to the OpenAI API
 - Responses are displayed in a chat-like format

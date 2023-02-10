@@ -3,7 +3,7 @@
 A web application that allows users to interact with OpenAI's GPT-3 language model through a simple and user-friendly interface.
 This app is for demo purpose to test OpenAI API and may contain issues/bugs.
 
-![Demo Gif](/client/assets/img/demo2.gif)
+![Demo Gif](/client/src/img/demo2.gif)
 
 <a href="https://www.buymeacoffee.com/ioanmo226" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="51" width="217"></a>
 
@@ -15,31 +15,73 @@ This app is for demo purpose to test OpenAI API and may contain issues/bugs.
 - Highlight code syntax
 
 ## Technologies Used
-- For client, I haven't used frameworks as this is simple demo version.
+- For client, I used React.js.
 - For server, I used express.
 
-## Setup
-### Prerequisites
-- Node.js
-- OpenAI API Key
-### Installation
-1. Clone the repository:
+## Setup Introduction
+This guide will help you set up the repository on your local machine. Please follow these steps carefully to ensure a smooth setup process.
+
+### Cloning the repository
+Use the following command to clone the repository:
 ```sh
 git clone https://github.com/ioanmo226/chatgpt-web-application
 ```
-2. Install the dependencies:
+
+### Backend Setup
+ 
+- Navigate to server direcotory
 ```sh
-npm install
+cd server # Navigate to the server directory:
 ```
-3. Create a .env file in the root folder and add your OpenAI API key in the following format:
+- Install dependencies
 ```sh
-OPENAI_API_KEY=your_api_key
+npm install #install the backend dependencies
 ```
-4. Start node server
+- Set the OPENAI_API_KEY in the .env file:
+```sh
+OPENAI_API_KEY=YOUR_OPENAI_API_KEY
+```
+
+- Start the backend server by running the following command:
 ```sh
 node index.js
 ```
-5. Now when you navigate to http://localhost:3001 you will see web response.
+
+### Frontend Setup
+
+- Navigate to the client directory:
+```sh
+cd client
+```
+
+- Run the following command to install the frontend dependencies:
+```sh
+npm install
+```
+
+- Set the `REACT_APP_BACKEND_URL` in the `.env` file to the URL of your backend server. For local development, use the following URL:
+```sh
+REACT_APP_BACKEND_URL=http://localhost:3001/
+```
+
+- Start the frontend app by running the following command:
+```sh
+npm start
+```
+
+### Hosting Backend and Frontend in Same Port/URL
+
+If you wish to host both the backend and frontend on the same port/URL, follow these steps:
+
+- Build the frontend by running the following command in the `client` directory:
+```sh
+npm run build
+```
+- Copy the `build` directory to the `server` directory and rename it to `frontend`.
+
+- Start the backend server using the instructions in the "Backend Setup" section.
+
+- Once the setup process is complete, the frontend will be accessible at the URL of your backend server.
 
 ## Usage
 - Type in the input field and press enter or click on the send button to make a request to the OpenAI API

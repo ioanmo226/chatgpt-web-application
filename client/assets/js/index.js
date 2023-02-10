@@ -1,19 +1,22 @@
 const API_URL = 'http://localhost:3001';
 const converter = new showdown.Converter();
+let promptToRetry = null;
+let uniqueIdToRetry = null;
 
-const submitButton = document.getElementById("submit-button");
-const promptInput = document.getElementById("prompt-input");
-const modelSelect = document.getElementById("model-select");
-const responseList = document.getElementById("response-list");
+const submitButton = document.getElementById('submit-button');
+const regenerateResponseButton = document.getElementById('regenerate-response-button');
+const promptInput = document.getElementById('prompt-input');
+const modelSelect = document.getElementById('model-select');
+const responseList = document.getElementById('response-list');
 let isGeneratingResponse = false;
 
 let loadInterval = null;
 
-promptInput.addEventListener("keydown", function(event) {
+promptInput.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault();
         if (event.ctrlKey || event.shiftKey) {
-            document.execCommand("insertHTML", false, "<br/><br/>");
+            document.execCommand('insertHTML', false, '<br/><br/>');
         } else {
             getGPTResult();
         }
@@ -21,13 +24,13 @@ promptInput.addEventListener("keydown", function(event) {
 });
 
 function generateUniqueId() {
-    // Used to generate unique IDs
     const timestamp = Date.now();
     const randomNumber = Math.random();
     const hexadecimalString = randomNumber.toString(16);
 
     return `id-${timestamp}-${hexadecimalString}`;
 }
+
 
 function addResponse(selfFlag, prompt) {
     const uniqueId = generateUniqueId();
@@ -61,10 +64,19 @@ function setErrorForResponse(element, message) {
     element.style.color = 'rgb(200, 0, 0)';
 }
 
+async function regenerateGPTResult() {
+    try {
+        await getGPTResult(promptToRetry, uniqueIdToRetry)
+        regenerateResponseButton.classList.add("loading");
+    } finally {
+        regenerateResponseButton.classList.remove("loading");
+    }
+}
+
 // Function to get GPT result
-async function getGPTResult() {
+async function getGPTResult(_promptToRetry, _uniqueIdToRetry) {
     // Get the prompt input
-    const prompt = promptInput.textContent;
+    const prompt = _promptToRetry ?? promptInput.textContent;
 
     // If a response is already being generated or the prompt is empty, return
     if (isGeneratingResponse || !prompt) {
@@ -77,11 +89,13 @@ async function getGPTResult() {
     // Clear the prompt input
     promptInput.textContent = '';
 
-    // Add the prompt to the response list
-    addResponse(true, prompt);
+    if (!_uniqueIdToRetry) {
+        // Add the prompt to the response list
+        addResponse(true, prompt);
+    }
 
     // Get a unique ID for the response element
-    const uniqueId = addResponse(false);
+    const uniqueId = _uniqueIdToRetry ?? addResponse(false);
 
     // Get the response element
     const responseElement = document.getElementById(uniqueId);
@@ -116,12 +130,18 @@ async function getGPTResult() {
             responseElement.innerHTML = converter.makeHtml(responseText.trim());
         }
 
+        promptToRetry = null;
+        uniqueIdToRetry = null;
+        regenerateResponseButton.style.display = 'none';
         setTimeout(() => {
             // Scroll to the bottom of the response list
             responseList.scrollTop = responseList.scrollHeight;
             hljs.highlightAll();
         }, 10);
     } catch (err) {
+        promptToRetry = prompt;
+        uniqueIdToRetry = uniqueId;
+        regenerateResponseButton.style.display = 'flex';
         // If there's an error, show it in the response element
         setErrorForResponse(responseElement, `Error: ${err.message}`);
     } finally {
@@ -139,6 +159,9 @@ async function getGPTResult() {
 
 submitButton.addEventListener("click", () => {
     getGPTResult();
+});
+regenerateResponseButton.addEventListener("click", () => {
+    regenerateGPTResult();
 });
 
 document.addEventListener("DOMContentLoaded", function(){

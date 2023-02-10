@@ -24,6 +24,12 @@ const App = () => {
     return `id-${timestamp}-${hexadecimalString}`;
   }
 
+  const htmlToText = (html: string) => {
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+    return temp.textContent;
+  }
+
   const delay = (ms: number) => {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
@@ -78,7 +84,7 @@ const App = () => {
 
   const getGPTResult = async (_promptToRetry?: string | null, _uniqueIdToRetry?: string | null) => {
     // Get the prompt input
-    const _prompt = _promptToRetry ?? prompt;
+    const _prompt = _promptToRetry ?? htmlToText(prompt);
 
     // If a response is already being generated or the prompt is empty, return
     if (isLoading || !_prompt) {
@@ -121,7 +127,7 @@ const App = () => {
       setPromptToRetry(null);
       setUniqueIdToRetry(null);
     } catch (err) {
-      setPromptToRetry(prompt);
+      setPromptToRetry(_prompt);
       setUniqueIdToRetry(uniqueId);
       updateResponse(uniqueId, {
         // @ts-ignore

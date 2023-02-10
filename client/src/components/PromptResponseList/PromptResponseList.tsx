@@ -14,10 +14,9 @@ const PromptResponseList: React.FC<PromptResponseListProps> = ({ responseList })
   const responseListRef = React.useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    responseListRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [responseList]);
-
-  useEffect(() => {
+    if (responseListRef.current) {
+      responseListRef.current.scrollTop = responseListRef.current?.scrollHeight;
+    }
     hljs.highlightAll();
   }, [responseList]);
 

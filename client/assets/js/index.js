@@ -64,6 +64,12 @@ function setErrorForResponse(element, message) {
     element.style.color = 'rgb(200, 0, 0)';
 }
 
+function setRetryResponse(prompt, uniqueId) {
+    promptToRetry = prompt;
+    uniqueIdToRetry = uniqueId;
+    regenerateResponseButton.style.display = 'flex';
+}
+
 async function regenerateGPTResult() {
     try {
         await getGPTResult(promptToRetry, uniqueIdToRetry)
@@ -118,6 +124,7 @@ async function getGPTResult(_promptToRetry, _uniqueIdToRetry) {
             })
         });
         if (!response.ok) {
+            setRetryResponse(prompt, uniqueId);
             setErrorForResponse(responseElement, `HTTP Error: ${await response.text()}`);
             return;
         }
@@ -139,9 +146,7 @@ async function getGPTResult(_promptToRetry, _uniqueIdToRetry) {
             hljs.highlightAll();
         }, 10);
     } catch (err) {
-        promptToRetry = prompt;
-        uniqueIdToRetry = uniqueId;
-        regenerateResponseButton.style.display = 'flex';
+        setRetryResponse(prompt, uniqueId);
         // If there's an error, show it in the response element
         setErrorForResponse(responseElement, `Error: ${err.message}`);
     } finally {

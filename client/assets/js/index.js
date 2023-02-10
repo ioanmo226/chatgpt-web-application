@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001';
+const API_URL = '/';
 const converter = new showdown.Converter();
 let promptToRetry = null;
 let uniqueIdToRetry = null;
@@ -115,7 +115,7 @@ async function getGPTResult(_promptToRetry, _uniqueIdToRetry) {
     try {
         const model = modelSelect.value;
         // Send a POST request to the API with the prompt in the request body
-        const response = await fetch(API_URL + '/get-prompt-result', {
+        const response = await fetch(API_URL + 'get-prompt-result', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

@@ -10,7 +10,7 @@ const openai = new OpenAIApi(configuration);
 
 app.use(cors());
 app.use(express.json());
-app.use('/', express.static(__dirname + '/frontend')); // Serves resources from client folder
+app.use('/', express.static(__dirname + '/client')); // Serves resources from client folder
 
 app.post('/get-prompt-result', async (req, res) => {
     // Get the prompt from the request body

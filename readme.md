@@ -3,7 +3,7 @@
 A web application that allows users to interact with OpenAI's GPT-3 language model through a simple and user-friendly interface.
 This app is for demo purpose to test OpenAI API and may contain issues/bugs.
 
-If you are looking for react version check [here](https://github.com/ioanmo226/chatgpt-react-application)
+If you are looking for React.js version check [here](https://github.com/ioanmo226/chatgpt-react-application)
 
 ![Demo Gif](/client/assets/img/demo2.gif)
 

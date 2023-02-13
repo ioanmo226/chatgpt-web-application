@@ -39,6 +39,9 @@ select {
     #response-list .response-container, #bottom-container {
         padding: 15px;
     }
+    .ai-image {
+        max-width: 100%;
+    }
 }
 #response-list .response-container .avatar-image {
     width: 30px;

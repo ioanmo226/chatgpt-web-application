@@ -10,6 +10,11 @@ body {
     margin: 0;
 }
 
+select {
+    max-width: 100%;
+    text-overflow: ellipsis;
+}
+
 /* Remove border color from the response list container */
 #response-list {
     border: none;
@@ -21,11 +26,20 @@ body {
 #response-list .response-container {
     margin-bottom: 10px;
     color: white;
-    padding: 15px 200px;
     font-size: 1rem;
     display: flex;
+    word-break: break-word;
 }
 
+#response-list .response-container, #bottom-container {
+    padding: 15px 10%;
+}
+
+@media (pointer:none), (pointer:coarse) {
+    #response-list .response-container, #bottom-container {
+        padding: 15px;
+    }
+}
 #response-list .response-container .avatar-image {
     width: 30px;
     height: 30px;
@@ -70,7 +84,7 @@ body {
     background-color: rgba(64, 65, 79, 1);
     border-color: rgba(32,33,35,.5);
     border-radius: 5px;
-    margin: 10px 200px;
+    margin-top: 10px;
 }
 
 /* Style for the prompt input */
@@ -122,7 +136,6 @@ body {
 }
 
 #model-select-container {
-    margin: 10px 200px;
     color: white;
 }
 

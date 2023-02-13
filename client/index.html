@@ -4,26 +4,33 @@
     <title>ChatGPT Front-end</title>
     <link rel="stylesheet" href="./assets/css/highlight.min.css">
     <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description"
+          content="Experience OpenAI API with this simple web application"
+    />
 </head>
 <body>
 <div id="response-list">
 </div>
-<div id="regenerate-button-container">
-    <button id="regenerate-response-button">
-        Regenerate Response
-    </button>
-</div>
-<div id="model-select-container">
-    <label for="model-select">Select model:</label>
-    <select id="model-select">
-        <option value="gpt" selected>GPT-3 (Understand and generate natural language )</option>
-        <option value="codex">Codex (Understand and generate code, including translating natural language to code)</option>
-        <option value="image">Create Image (Create AI image using DALL·E models)</option>
-    </select>
-</div>
-<div id="input-container">
-    <div id="prompt-input" contentEditable></div>
-    <button id="submit-button"></button>
+<div id="bottom-container">
+    <div id="regenerate-button-container">
+        <button id="regenerate-response-button">
+            Regenerate Response
+        </button>
+    </div>
+    <div id="model-select-container">
+        <label for="model-select">Select model:</label>
+        <select id="model-select">
+            <option value="gpt" selected>GPT-3 (Understand and generate natural language )</option>
+            <option value="codex">Codex (Understand and generate code, including translating natural language to code)</option>
+            <option value="image">Create Image (Create AI image using DALL·E models)</option>
+        </select>
+    </div>
+    <div id="input-container">
+        <div id="prompt-input" contentEditable></div>
+        <button id="submit-button"></button>
+    </div>
 </div>
 <script src="./assets/js/highlight.min.js"></script>
 <script src="./assets/js/showdown.min.js"></script>

@@ -33,8 +33,23 @@ app.post('/get-prompt-result', async (req, res) => {
             });
             return res.send(result.data.data[0].url);
         }
+        let modelName;
+        switch (model) {
+            case 'gpt35':
+                modelName = 'gpt-3.5-turbo';
+                break;
+            case 'gpt':
+                modelName = 'text-davinci-003';
+                break;
+            case 'codex':
+                modelName = 'code-davinci-002';
+                break;
+            default:
+                modelName = 'text-davinci-003';
+                break;
+        }
         const completion = await openai.createCompletion({
-            model: model === 'gpt' ? "text-davinci-003" : 'code-davinci-002', // model name
+            model: modelName, // model name
             prompt: `Please reply below question in markdown format.\n ${prompt}`, // input prompt
             max_tokens: model === 'gpt' ? 4000 : 8000 // Use max 8000 tokens for codex model
         });

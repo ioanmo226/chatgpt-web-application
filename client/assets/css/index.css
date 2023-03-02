@@ -65,6 +65,7 @@ select {
     color: white;
     padding: 0 !important;
     margin-top: 5px;
+    white-space: pre-wrap;
 }
 
 #response-list .response-container .prompt-content p:first-child {

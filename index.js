@@ -33,6 +33,15 @@ app.post('/get-prompt-result', async (req, res) => {
             });
             return res.send(result.data.data[0].url);
         }
+        if (model === 'chatgpt') {
+            const result = await openai.createChatCompletion({
+                model:"gpt-3.5-turbo",
+                messages: [
+                    { role: "user", content: prompt }
+                ]
+            })
+            return res.send(result.data.choices[0]?.message?.content);
+        }
         const completion = await openai.createCompletion({
             model: model === 'gpt' ? "text-davinci-003" : 'code-davinci-002', // model name
             prompt: `Please reply below question in markdown format.\n ${prompt}`, // input prompt

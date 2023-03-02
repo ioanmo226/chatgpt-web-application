@@ -64,7 +64,9 @@ select {
     background: transparent !important;
     color: white;
     padding: 0 !important;
-    margin-top: 5px;
+}
+
+#response-list .response-container .prompt-content * {
     white-space: pre-wrap;
 }
 

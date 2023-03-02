@@ -97,7 +97,7 @@ async function getGPTResult(_promptToRetry, _uniqueIdToRetry) {
 
     if (!_uniqueIdToRetry) {
         // Add the prompt to the response list
-        addResponse(true, prompt);
+        addResponse(true, `<div>${prompt}</div>`);
     }
 
     // Get a unique ID for the response element

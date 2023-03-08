@@ -26,9 +26,11 @@
             <option value="gpt">GPT-3 (Understand and generate natural language )</option>
             <option value="codex">Codex (Understand and generate code, including translating natural language to code)</option>
             <option value="image">Create Image (Create AI image using DALL·E models)</option>
+            <option value="whisper">Whisper(AI speech recognition model)</option>
         </select>
     </div>
     <div id="input-container">
+        <input type="file" id="whisper-file" accept=".mp3,.mp4,.mpeg,.mpga,.m4a,.wav,.webm" style="display:none;">
         <div id="prompt-input" contentEditable></div>
         <button id="submit-button"></button>
     </div>

@@ -8,6 +8,20 @@ const regenerateResponseButton = document.getElementById('regenerate-response-bu
 const promptInput = document.getElementById('prompt-input');
 const modelSelect = document.getElementById('model-select');
 const responseList = document.getElementById('response-list');
+const fileInput = document.getElementById("whisper-file");
+
+modelSelect.addEventListener("change", function() {
+    if (modelSelect.value === "whisper") {
+        fileInput.style.display = "block";
+        // Disable the input field when Whisper is selected
+        promptInput.style.display = 'none';
+    } else {
+        fileInput.style.display = "none";
+        // Enable the input field when Whisper is not selected
+        promptInput.style.display = 'block';
+    }
+});
+
 let isGeneratingResponse = false;
 
 let loadInterval = null;
@@ -60,7 +74,7 @@ function loader(element) {
 }
 
 function setErrorForResponse(element, message) {
-    element.innerText = message;
+    element.innerHTML = message;
     element.style.color = 'rgb(200, 0, 0)';
 }
 
@@ -79,8 +93,45 @@ async function regenerateGPTResult() {
     }
 }
 
+async function getWhisperResult() {
+    if (!fileInput.files?.length) {
+        return;
+    }
+    const formData = new FormData();
+    formData.append("audio", fileInput.files[0]);
+    const uniqueId = addResponse(false);
+    const responseElement = document.getElementById(uniqueId);
+    isGeneratingResponse = true;
+    loader(responseElement);
+
+    try {
+        submitButton.classList.add("loading");
+        const response = await fetch("/transcribe", {
+            method: "POST",
+            body: formData
+        });
+        if (!response.ok) {
+            setErrorForResponse(responseElement, `HTTP Error: ${await response.text()}`);
+            return;
+        }
+        const responseText = await response.text();
+        responseElement.innerHTML = `<div>${responseText}</div>`
+    } catch (e) {
+        console.log(e);
+        setErrorForResponse(responseElement, `Error: ${e.message}`);
+    } finally {
+        isGeneratingResponse = false;
+        submitButton.classList.remove("loading");
+        clearInterval(loadInterval);
+    }
+}
+
 // Function to get GPT result
 async function getGPTResult(_promptToRetry, _uniqueIdToRetry) {
+    if (modelSelect.value === 'whisper') {
+        await getWhisperResult();
+        return;
+    }
     // Get the prompt input
     const prompt = _promptToRetry ?? promptInput.textContent;
 

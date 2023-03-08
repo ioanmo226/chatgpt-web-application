@@ -49,8 +49,9 @@ app.post('/transcribe', upload.single('audio'), async (req, res) => {
         );
         return res.send(resp.data.text);
     } catch (error) {
-        console.error(error);
-        return res.status(500).send(error.message);
+        const errorMsg = error.response ? error.response.data.error : `${error}`;
+        console.log(errorMsg)
+        return res.status(500).send(errorMsg);
     } finally {
         fs.unlinkSync(req.file.path);
     }

@@ -5,7 +5,7 @@ This app is for demo purpose to test OpenAI API and may contain issues/bugs.
 
 If you are looking for React.js version check [here](https://github.com/ioanmo226/chatgpt-react-application)
 
-![Demo Gif](/client/assets/img/demo3.gif)
+![Demo Video](/client/assets/demo.mp4)
 
 <a href="https://www.buymeacoffee.com/ioanmo226" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="51" width="217"></a>
 

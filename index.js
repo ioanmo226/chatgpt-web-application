@@ -28,7 +28,7 @@ const upload = multer({
             cb(null, filename);
         }
     }),
-    limits: { fileSize: 1024 * 1024 * 25 }, // 10 MB
+    limits: { fileSize: 1024 * 1024 * 10 }, // 10 MB
     fileFilter: function (req, file, cb) {
         const allowedExtensions = ['.mp3', '.mp4', '.mpeg', '.mpga', '.m4a', '.wav', '.webm'];
         const extension = path.extname(file.originalname);

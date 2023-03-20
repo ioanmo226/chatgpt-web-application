@@ -1,4 +1,4 @@
-# ChatGPT Web Application
+# OpenAI Web Application
 
 A web application that allows users to interact with OpenAI's modles through a simple and user-friendly interface.
 This app is for demo purpose to test OpenAI API and may contain issues/bugs.

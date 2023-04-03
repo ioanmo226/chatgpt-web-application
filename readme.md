@@ -13,7 +13,7 @@ If you are looking for React.js version check [here](https://github.com/ioanmo22
 ## Features
 - User-friendly interface for making requests to the OpenAI API
 - Responses are displayed in a chat-like format
-- Select Models (Davinci, Codex, DALL·E, Whisper) based on your needs
+- Select Models (Davinci, DALL·E, Whisper) based on your needs
 - Create AI Images (DALL·E)
 - Audio-Text Transcribe (Whisper)
 - Highlight code syntax
